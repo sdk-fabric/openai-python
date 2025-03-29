@@ -6,11 +6,6 @@ https://sdkgen.app
 from pydantic import BaseModel, Field, GetCoreSchemaHandler, Tag
 from pydantic_core import CoreSchema, core_schema
 from typing import Any, Dict, Generic, List, Optional, TypeVar, Annotated, Union
-from .completion_message_developer import CompletionMessageDeveloper
-from .completion_message_system import CompletionMessageSystem
-from .completion_message_user import CompletionMessageUser
-from .completion_message_assistant import CompletionMessageAssistant
-from .completion_message_tool import CompletionMessageTool
 
 
 class CompletionMessage(BaseModel):

@@ -15,6 +15,8 @@ from .completion_collection import CompletionCollection
 from .completion_deleted import CompletionDeleted
 from .completion_request import CompletionRequest
 from .completion_response import CompletionResponse
+from .error import Error
+from .error_exception import ErrorException
 
 class CompletionsTag(sdkgen.TagAbstract):
     def __init__(self, http_client: requests.Session, parser: sdkgen.Parser):
@@ -50,6 +52,11 @@ class CompletionsTag(sdkgen.TagAbstract):
                 return data
 
             statusCode = response.status_code
+            if statusCode >= 0 and statusCode <= 999:
+                data = Error.model_validate_json(json_data=response.content)
+
+                raise ErrorException(data)
+
             raise sdkgen.UnknownStatusCodeException('The server returned an unknown status code: ' + str(statusCode))
         except RequestException as e:
             raise sdkgen.ClientException('An unknown error occurred: ' + str(e))
@@ -85,6 +92,11 @@ class CompletionsTag(sdkgen.TagAbstract):
                 return data
 
             statusCode = response.status_code
+            if statusCode >= 0 and statusCode <= 999:
+                data = Error.model_validate_json(json_data=response.content)
+
+                raise ErrorException(data)
+
             raise sdkgen.UnknownStatusCodeException('The server returned an unknown status code: ' + str(statusCode))
         except RequestException as e:
             raise sdkgen.ClientException('An unknown error occurred: ' + str(e))
@@ -117,6 +129,11 @@ class CompletionsTag(sdkgen.TagAbstract):
                 return data
 
             statusCode = response.status_code
+            if statusCode >= 0 and statusCode <= 999:
+                data = Error.model_validate_json(json_data=response.content)
+
+                raise ErrorException(data)
+
             raise sdkgen.UnknownStatusCodeException('The server returned an unknown status code: ' + str(statusCode))
         except RequestException as e:
             raise sdkgen.ClientException('An unknown error occurred: ' + str(e))
