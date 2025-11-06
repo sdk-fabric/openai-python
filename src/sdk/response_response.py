@@ -8,6 +8,7 @@ from pydantic_core import CoreSchema, core_schema
 from typing import Any, Dict, Generic, List, Optional, TypeVar, Annotated, Union
 from .response_response_error import ResponseResponseError
 from .response_response_output import ResponseResponseOutput
+from .response_response_output_function_call import ResponseResponseOutputFunctionCall
 from .response_response_output_message import ResponseResponseOutputMessage
 
 
@@ -17,7 +18,7 @@ class ResponseResponse(BaseModel):
     id: Optional[str] = Field(default=None, alias="id")
     incomplete_details: Optional[str] = Field(default=None, alias="incomplete_details")
     object: Optional[str] = Field(default="response", alias="object")
-    output: Optional[List[Annotated[Union[Annotated[ResponseResponseOutputMessage, Tag('message')]], Field(discriminator='type')]]] = Field(default=None, alias="output")
+    output: Optional[List[Annotated[Union[Annotated[ResponseResponseOutputFunctionCall, Tag('function_call')], Annotated[ResponseResponseOutputMessage, Tag('message')]], Field(discriminator='type')]]] = Field(default=None, alias="output")
     previous_response_id: Optional[str] = Field(default=None, alias="previous_response_id")
     pass
 

@@ -6,21 +6,22 @@ https://sdkgen.app
 from pydantic import BaseModel, Field, GetCoreSchemaHandler, Tag
 from pydantic_core import CoreSchema, core_schema
 from typing import Any, Dict, Generic, List, Optional, TypeVar, Annotated, Union
-from .response_request_conversation import ResponseRequestConversation
+from .response_request_input import ResponseRequestInput
 from .response_prompt import ResponsePrompt
 from .response_reasoning import ResponseReasoning
-from .response_text import ResponseText
-from .response_tool import ResponseTool
-from .response_tool_function import ResponseToolFunction
-from .response_tool_mcp import ResponseToolMCP
-from .response_tool_web_search import ResponseToolWebSearch
+from .response_request_text import ResponseRequestText
+from .response_request_tool import ResponseRequestTool
+from .response_request_input_function_call import ResponseRequestInputFunctionCall
+from .response_request_input_function_call_output import ResponseRequestInputFunctionCallOutput
+from .response_request_input_message import ResponseRequestInputMessage
+from .response_request_tool_function import ResponseRequestToolFunction
 
 
 class ResponseRequest(BaseModel):
     background: Optional[bool] = Field(default=None, alias="background")
-    conversation: Optional[ResponseRequestConversation] = Field(default=None, alias="conversation")
+    conversation: Optional[str] = Field(default=None, alias="conversation")
     include: Optional[List[str]] = Field(default=None, alias="include")
-    input: Optional[str] = Field(default=None, alias="input")
+    input: Optional[List[Annotated[Union[Annotated[ResponseRequestInputFunctionCall, Tag('function_call')], Annotated[ResponseRequestInputFunctionCallOutput, Tag('function_call_output')], Annotated[ResponseRequestInputMessage, Tag('message')]], Field(discriminator='type')]]] = Field(default=None, alias="input")
     instructions: Optional[str] = Field(default=None, alias="instructions")
     max_output_tokens: Optional[str] = Field(default=None, alias="max_output_tokens")
     max_tool_calls: Optional[str] = Field(default=None, alias="max_tool_calls")
@@ -35,9 +36,9 @@ class ResponseRequest(BaseModel):
     service_tier: Optional[str] = Field(default=None, alias="service_tier")
     store: Optional[bool] = Field(default=None, alias="store")
     temperature: Optional[float] = Field(default=None, alias="temperature")
-    text: Optional[ResponseText] = Field(default=None, alias="text")
+    text: Optional[ResponseRequestText] = Field(default=None, alias="text")
     tool_choice: Optional[str] = Field(default=None, alias="tool_choice")
-    tools: Optional[List[Annotated[Union[Annotated[ResponseToolFunction, Tag('function')], Annotated[ResponseToolMCP, Tag('mcp')], Annotated[ResponseToolWebSearch, Tag('web_search')]], Field(discriminator='type')]]] = Field(default=None, alias="tools")
+    tools: Optional[List[Annotated[Union[Annotated[ResponseRequestToolFunction, Tag('function')]], Field(discriminator='type')]]] = Field(default=None, alias="tools")
     top_logprobs: Optional[int] = Field(default=None, alias="top_logprobs")
     top_p: Optional[float] = Field(default=None, alias="top_p")
     truncation: Optional[str] = Field(default=None, alias="truncation")
