@@ -12,7 +12,7 @@ from .response_text_format import ResponseTextFormat
 class ResponseTextFormatJsonSchema(ResponseTextFormat):
     name: Optional[str] = Field(default=None, alias="name")
     schema_: Optional[Any] = Field(default=None, alias="schema")
-    type: Optional[str] = Field(default=None, alias="type")
+    type: Optional[str] = Field(default="json_schema", alias="type")
     description: Optional[str] = Field(default=None, alias="description")
     strict: Optional[bool] = Field(default=None, alias="strict")
     pass

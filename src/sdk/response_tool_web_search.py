@@ -12,7 +12,7 @@ from .response_tool_web_search_location import ResponseToolWebSearchLocation
 
 
 class ResponseToolWebSearch(ResponseTool):
-    type: Optional[str] = Field(default=None, alias="type")
+    type: Optional[str] = Field(default="web_search", alias="type")
     filters: Optional[ResponseToolWebSearchFilter] = Field(default=None, alias="filters")
     search_context_size: Optional[str] = Field(default=None, alias="search_context_size")
     user_location: Optional[ResponseToolWebSearchLocation] = Field(default=None, alias="user_location")

@@ -11,7 +11,7 @@ from .response_tool import ResponseTool
 
 class ResponseToolMCP(ResponseTool):
     server_label: Optional[str] = Field(default=None, alias="server_label")
-    type: Optional[str] = Field(default=None, alias="type")
+    type: Optional[str] = Field(default="mcp", alias="type")
     allowed_tools: Optional[List[str]] = Field(default=None, alias="allowed_tools")
     authorization: Optional[str] = Field(default=None, alias="authorization")
     connector_id: Optional[str] = Field(default=None, alias="connector_id")

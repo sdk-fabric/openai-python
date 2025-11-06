@@ -10,7 +10,7 @@ from .response_text_format import ResponseTextFormat
 
 
 class ResponseTextFormatText(ResponseTextFormat):
-    type: Optional[str] = Field(default=None, alias="type")
+    type: Optional[str] = Field(default="text", alias="type")
     pass
 
 

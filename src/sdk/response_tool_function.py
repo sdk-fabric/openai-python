@@ -13,7 +13,7 @@ class ResponseToolFunction(ResponseTool):
     name: Optional[str] = Field(default=None, alias="name")
     parameters: Optional[Any] = Field(default=None, alias="parameters")
     strict: Optional[bool] = Field(default=None, alias="strict")
-    type: Optional[str] = Field(default=None, alias="type")
+    type: Optional[str] = Field(default="function", alias="type")
     description: Optional[str] = Field(default=None, alias="description")
     pass
 
