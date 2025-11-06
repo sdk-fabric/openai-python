@@ -6,10 +6,13 @@ https://sdkgen.app
 from pydantic import BaseModel, Field, GetCoreSchemaHandler, Tag
 from pydantic_core import CoreSchema, core_schema
 from typing import Any, Dict, Generic, List, Optional, TypeVar, Annotated, Union
+from .response_request_text_format import ResponseRequestTextFormat
+from .response_request_text_format_json_schema import ResponseRequestTextFormatJsonSchema
+from .response_request_text_format_text import ResponseRequestTextFormatText
 
 
 class ResponseRequestText(BaseModel):
-    format: Optional[str] = Field(default=None, alias="format")
+    format: Optional[Annotated[Union[Annotated[ResponseRequestTextFormatJsonSchema, Tag('json_schema')], Annotated[ResponseRequestTextFormatText, Tag('text')]], Field(discriminator='type')]] = Field(default=None, alias="format")
     verbosity: Optional[str] = Field(default=None, alias="verbosity")
     pass
 
