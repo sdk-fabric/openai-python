@@ -15,7 +15,7 @@ class ResponseResponseOutputMessage(ResponseResponseOutput):
     id: Optional[str] = Field(default=None, alias="id")
     role: Optional[str] = Field(default=None, alias="role")
     status: Optional[str] = Field(default=None, alias="status")
-    type: Optional[str] = Field(default=None, alias="type")
+    type: Optional[str] = Field(default="message", alias="type")
     pass
 
 

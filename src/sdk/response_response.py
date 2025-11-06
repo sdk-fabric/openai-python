@@ -16,8 +16,9 @@ class ResponseResponse(BaseModel):
     error: Optional[ResponseResponseError] = Field(default=None, alias="error")
     id: Optional[str] = Field(default=None, alias="id")
     incomplete_details: Optional[str] = Field(default=None, alias="incomplete_details")
-    object: Optional[str] = Field(default=None, alias="object")
+    object: Optional[str] = Field(default="response", alias="object")
     output: Optional[List[Annotated[Union[Annotated[ResponseResponseOutputMessage, Tag('message')]], Field(discriminator='type')]]] = Field(default=None, alias="output")
+    previous_response_id: Optional[str] = Field(default=None, alias="previous_response_id")
     pass
 
 
