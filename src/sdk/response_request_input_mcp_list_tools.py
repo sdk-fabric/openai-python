@@ -14,9 +14,9 @@ from .response_mcp_tool import ResponseMCPTool
 class ResponseRequestInputMcpListTools(ResponseRequestInput):
     id: Optional[str] = Field(default=None, alias="id")
     server_label: Optional[str] = Field(default=None, alias="server_label")
-    tools: Optional[str] = Field(default=None, alias="tools")
-    type: Optional[List[ResponseMCPTool]] = Field(default=None, alias="type")
+    tools: Optional[List[ResponseMCPTool]] = Field(default=None, alias="tools")
     error: Optional[str] = Field(default=None, alias="error")
+    type: Optional[str] = Field(default="mcp_list_tools", alias="type")
     pass
 
 
