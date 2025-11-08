@@ -12,6 +12,7 @@ from typing import Any
 from urllib.parse import parse_qs
 
 from .completions_tag import CompletionsTag
+from .responses_tag import ResponsesTag
 
 class Client(sdkgen.ClientAbstract):
     def __init__(self, base_url: str, credentials: sdkgen.CredentialsInterface):
@@ -23,13 +24,19 @@ class Client(sdkgen.ClientAbstract):
             self.parser
         )
 
+    def responses(self) -> ResponsesTag:
+        return ResponsesTag(
+            self.http_client,
+            self.parser
+        )
+
 
 
     @staticmethod
     def build(token: str):
-        return Client("https://api.openai.com/", sdkgen.HttpBearer(token))
+        return Client("https://api.openai.com", sdkgen.HttpBearer(token))
 
 
     @staticmethod
     def buildAnonymous():
-        return Client("https://api.openai.com/", sdkgen.Anonymous())
+        return Client("https://api.openai.com", sdkgen.Anonymous())

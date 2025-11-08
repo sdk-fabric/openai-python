@@ -15,6 +15,8 @@ from .completion_collection import CompletionCollection
 from .completion_deleted import CompletionDeleted
 from .completion_request import CompletionRequest
 from .completion_response import CompletionResponse
+from .error import Error
+from .error_exception import ErrorException
 
 class CompletionsTag(sdkgen.TagAbstract):
     def __init__(self, http_client: requests.Session, parser: sdkgen.Parser):
@@ -50,6 +52,48 @@ class CompletionsTag(sdkgen.TagAbstract):
                 return data
 
             statusCode = response.status_code
+            if statusCode >= 0 and statusCode <= 999:
+                data = Error.model_validate_json(json_data=response.content)
+
+                raise ErrorException(data)
+
+            raise sdkgen.UnknownStatusCodeException('The server returned an unknown status code: ' + str(statusCode))
+        except RequestException as e:
+            raise sdkgen.ClientException('An unknown error occurred: ' + str(e))
+
+    def delete(self, completion_id: str) -> CompletionDeleted:
+        """
+        Delete a stored chat completion. Only Chat Completions that have been created with the store parameter set to true can be deleted.
+        """
+        try:
+            path_params = {}
+            path_params['completion_id'] = completion_id
+
+            query_params = {}
+
+            query_struct_names = []
+
+            url = self.parser.url('/v1/chat/completions/:completion_id', path_params)
+
+            options = {}
+            options['headers'] = {}
+            options['params'] = self.parser.query(query_params, query_struct_names)
+
+
+
+            response = self.http_client.request('DELETE', url, **options)
+
+            if response.status_code >= 200 and response.status_code < 300:
+                data = CompletionDeleted.model_validate_json(json_data=response.content)
+
+                return data
+
+            statusCode = response.status_code
+            if statusCode >= 0 and statusCode <= 999:
+                data = Error.model_validate_json(json_data=response.content)
+
+                raise ErrorException(data)
+
             raise sdkgen.UnknownStatusCodeException('The server returned an unknown status code: ' + str(statusCode))
         except RequestException as e:
             raise sdkgen.ClientException('An unknown error occurred: ' + str(e))
@@ -85,38 +129,11 @@ class CompletionsTag(sdkgen.TagAbstract):
                 return data
 
             statusCode = response.status_code
-            raise sdkgen.UnknownStatusCodeException('The server returned an unknown status code: ' + str(statusCode))
-        except RequestException as e:
-            raise sdkgen.ClientException('An unknown error occurred: ' + str(e))
+            if statusCode >= 0 and statusCode <= 999:
+                data = Error.model_validate_json(json_data=response.content)
 
-    def delete(self, completion_id: str) -> CompletionDeleted:
-        """
-        Delete a stored chat completion. Only Chat Completions that have been created with the store parameter set to true can be deleted.
-        """
-        try:
-            path_params = {}
-            path_params['completion_id'] = completion_id
+                raise ErrorException(data)
 
-            query_params = {}
-
-            query_struct_names = []
-
-            url = self.parser.url('/v1/chat/completions/:completion_id', path_params)
-
-            options = {}
-            options['headers'] = {}
-            options['params'] = self.parser.query(query_params, query_struct_names)
-
-
-
-            response = self.http_client.request('DELETE', url, **options)
-
-            if response.status_code >= 200 and response.status_code < 300:
-                data = CompletionDeleted.model_validate_json(json_data=response.content)
-
-                return data
-
-            statusCode = response.status_code
             raise sdkgen.UnknownStatusCodeException('The server returned an unknown status code: ' + str(statusCode))
         except RequestException as e:
             raise sdkgen.ClientException('An unknown error occurred: ' + str(e))
