@@ -10,7 +10,7 @@ from .response_request_input import ResponseRequestInput
 
 
 class ResponseRequestInputMessage(ResponseRequestInput):
-    content: Optional[List[str]] = Field(default=None, alias="content")
+    content: Optional[str] = Field(default=None, alias="content")
     role: Optional[str] = Field(default=None, alias="role")
     type: Optional[str] = Field(default="message", alias="type")
     pass
