@@ -15,14 +15,14 @@ from sdk.client import Client
 client = Client.build("[access_token]")
 
 # Creates a model response for the given chat conversation.
-response = client.completions().create(CompletionRequest())
+response = client.completions().create(Completion_Request())
 
 # Delete a stored chat completion.
 response = client.completions().delete("completion_id")
 
 # List stored Chat Completions.
-response = client.completions().get_all("after", 1, "model", "order")
+response = client.completions().getAll("after", 1, "model", "order")
 
 # Creates a model response.
-response = client.responses().create(ResponseRequest())
+response = client.responses().create(Response_Request())
 ```
