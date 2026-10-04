@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = [
   { name="Christoph Kappestein", email="christoph.kappestein@gmail.com" },
 ]
-description = "OpenAI Python SDK managed by SDK Fabric"
+description = "Openai Python SDK managed by SDK Fabric"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
